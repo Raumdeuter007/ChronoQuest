@@ -1,5 +1,3 @@
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -10,45 +8,219 @@ public class KingMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 8f;
-    [SerializeField] private float jumpPower = 16f;
-    [SerializeField] private float gravity = 1f;
+    [SerializeField] private float jumpForce = 15f; // Initial jump force
+    [SerializeField] private float maxJumpTime = 0.35f; // Maximum time player can hold jump
+    [SerializeField] private float jumpCutMultiplier = 0.5f; // How much to cut jump when releasing button
+
+    [Header("Physics")]
+    [SerializeField] private float fallGravityMultiplier = 2.5f; // Faster falling
+    [SerializeField] private float lowJumpGravityMultiplier = 2f; // When releasing jump early
+    private float baseGravity;
 
     [Header("Grounding")]
-    [SerializeField] private Transform layerCheck;
+    [SerializeField] private Transform groundCheck;
     [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private float groundCheckRadius = 0.2f;
+
+    [Header("Animator")]
+    [SerializeField] private Animator animator;
+
+    // Movement variables
     private float horizontal;
     private bool isFacingRight = true;
 
+    // Jump variables
+    private bool isJumpPressed = false;
+    private bool isJumping = false;
+    private float jumpTimeCounter;
 
-    #region Player Controls
-    public void Move(InputAction.CallbackContext context)
-    {
-        Debug.Log("Move Called");
-        horizontal = context.ReadValue<Vector2>().x;
+    // Ground state
+    private bool wasGrounded;
+    private bool isGrounded;
 
-    }
-    public void Jump(InputAction.CallbackContext _)
+    // Animation hashes
+    private int jumpHash = 0;
+    private int moveHash = 0;
+
+    #region Unity Lifecycle
+    private void Start()
     {
-        Debug.Log("Jump");
-        rb.linearVelocityY = jumpPower * 10;
+        // Cache animation parameter hashes
+        jumpHash = Animator.StringToHash("InAir");
+        moveHash = Animator.StringToHash("Running");
+
+        // Store the base gravity scale
+        baseGravity = 20f;
+        if (!IsGrounded())
+            rb.linearVelocityY = -1;
+
+        // Delay initial ground check to allow physics to settle
+        Invoke(nameof(InitializeGroundState), 0.05f);
     }
-    #endregion
-    private void FixedUpdate()
+    private void InitializeGroundState()
     {
-        Debug.Log("hello");
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocityY);
+        isGrounded = IsGrounded();
+        wasGrounded = isGrounded;
     }
 
     private void Update()
     {
-        rb.linearVelocityY -= gravity * Time.deltaTime;
-    }
-    private void Flip()
-    {
-        if ((isFacingRight && horizontal < 0f) || (!isFacingRight && horizontal > 0f))
+        // Update ground state
+        wasGrounded = isGrounded;
+        isGrounded = IsGrounded();
+
+        // Zero Y velocity when grounded
+        if (isGrounded && rb.linearVelocity.y <= 0)
         {
-            isFacingRight = !isFacingRight;
-            //Vector2 localScale =
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+        }
+
+        // Handle landing
+        if (!wasGrounded && isGrounded)
+        {
+            isJumping = false;
+            jumpTimeCounter = 0f;
+        }
+
+
+        // Handle jump logic
+        HandleJump();
+
+        // Apply gravity multipliers for better jump feel
+        ApplyManualGravity();
+
+        // Update animations
+        UpdateAnimations();
+
+        // Handle sprite flipping
+        Flip();
+    }
+
+    private void FixedUpdate()
+    {
+        // Apply horizontal movement
+        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+    }
+    #endregion
+
+    #region Player Controls
+    public void Move(InputAction.CallbackContext context)
+    {
+        horizontal = context.ReadValue<Vector2>().x;
+    }
+
+    public void Jump(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            // Jump button pressed
+            isJumpPressed = true;
+
+            if (isGrounded && !isJumping)
+            {
+                StartJump();
+            }
+        }
+        else if (context.canceled)
+        {
+            // Jump button released
+            isJumpPressed = false;
+
+            // Cut jump short if player releases button early
+            if (isJumping && rb.linearVelocity.y > 0f)
+            {
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
+            }
         }
     }
+    #endregion
+
+    #region Jump Logic
+    private void StartJump()
+    {
+        isJumping = true;
+        jumpTimeCounter = maxJumpTime;
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+    }
+
+    private void HandleJump()
+    {
+        if (isJumping && isJumpPressed)
+        {
+            if (jumpTimeCounter > 0)
+            {
+                jumpTimeCounter -= Time.deltaTime;
+            }
+            else
+            {
+                isJumping = false;
+            }
+        }
+
+        // Stop jumping if button released or moving downward
+        if ((!isJumpPressed || rb.linearVelocity.y <= 0) && isJumping)
+        {
+            isJumping = false;
+        }
+    }
+
+    private void ApplyManualGravity()
+    {
+        if (!isGrounded)
+        {
+            // Apply gravity based on jump state
+            float gravityToApply;
+
+            if (rb.linearVelocity.y < 0)
+            {
+                // Falling
+                gravityToApply = baseGravity * fallGravityMultiplier;
+            }
+            else if (rb.linearVelocity.y > 0 && !isJumpPressed)
+            {
+                // Rising but not holding jump
+                gravityToApply = baseGravity * lowJumpGravityMultiplier;
+            }
+            else
+            {
+                // Normal gravity
+                gravityToApply = baseGravity;
+            }
+
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - gravityToApply * Time.deltaTime);
+        }
+    }
+    #endregion
+
+    #region Animation
+    private void UpdateAnimations()
+    {
+        // Update jump/air animation
+        animator.SetBool(jumpHash, !isGrounded);
+
+        // Update running animation - only run if moving and grounded
+        bool isMoving = Mathf.Abs(horizontal) > 0.01f;
+        animator.SetBool(moveHash, isMoving && isGrounded);
+    }
+    #endregion
+
+    #region Ground Check
+    private bool IsGrounded()
+    {
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+    #endregion
+
+    #region Sprite Flipping
+    private void Flip()
+    {
+        if ((isFacingRight && horizontal < -0.01f) || (!isFacingRight && horizontal > 0.01f))
+        {
+            isFacingRight = !isFacingRight;
+            Vector3 localScale = transform.localScale;
+            localScale.x *= -1f;
+            transform.localScale = localScale;
+        }
+    }
+    #endregion
 }
