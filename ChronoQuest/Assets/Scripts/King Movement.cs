@@ -53,8 +53,6 @@ public class KingMovement : MonoBehaviour
 
         // Store the base gravity scale
         baseGravity = 10f;
-        if (!IsGrounded())
-            rb.linearVelocityY = -1;
 
         // Delay initial ground check to allow physics to settle
         Invoke(nameof(InitializeGroundState), 0.05f);

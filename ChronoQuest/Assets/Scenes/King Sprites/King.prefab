@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3512951330351192471}
@@ -179,8 +179,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.05701092, y: -0.22478586}
-  m_Size: {x: 0.13074714, y: 0.5770613}
+  m_Offset: {x: 0.05701092, y: -0.21283823}
+  m_Size: {x: 0.13074714, y: 0.55316603}
   m_Direction: 0
 --- !u!114 &4883808129897482044
 MonoBehaviour:
@@ -257,12 +257,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KingMovement
   rb: {fileID: 4506548337005889084}
-  speed: 2
-  jumpForce: 6
-  maxJumpTime: 3
+  speed: 6
+  jumpForce: 14
+  maxJumpTime: 1
   jumpCutMultiplier: 0.5
-  fallGravityMultiplier: 2
-  lowJumpGravityMultiplier: 1
+  fallGravityMultiplier: 8
+  lowJumpGravityMultiplier: 6
   groundCheck: {fileID: 3512951330351192471}
   groundLayer:
     serializedVersion: 2
