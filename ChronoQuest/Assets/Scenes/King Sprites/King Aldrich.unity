@@ -354,7 +354,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 01bc9dc1b8e80534cb121a1070c91992, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 2
+  m_UpdateMode: 0
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -514,11 +514,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KingMovement
   rb: {fileID: 1028080152}
   speed: 2
-  jumpForce: 1
-  maxJumpTime: 0.35
+  jumpForce: 6
+  maxJumpTime: 3
   jumpCutMultiplier: 0.5
-  fallGravityMultiplier: 20
-  lowJumpGravityMultiplier: 10
+  fallGravityMultiplier: 2
+  lowJumpGravityMultiplier: 1
   groundCheck: {fileID: 1258924639}
   groundLayer:
     serializedVersion: 2

@@ -1,4 +1,6 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.InputSystem;
 
 public class KingMovement : MonoBehaviour
@@ -50,7 +52,7 @@ public class KingMovement : MonoBehaviour
         moveHash = Animator.StringToHash("Running");
 
         // Store the base gravity scale
-        baseGravity = 20f;
+        baseGravity = 10f;
         if (!IsGrounded())
             rb.linearVelocityY = -1;
 
@@ -78,6 +80,7 @@ public class KingMovement : MonoBehaviour
         // Handle landing
         if (!wasGrounded && isGrounded)
         {
+            animator.SetBool(jumpHash, false);
             isJumping = false;
             jumpTimeCounter = 0f;
         }
@@ -88,9 +91,6 @@ public class KingMovement : MonoBehaviour
 
         // Apply gravity multipliers for better jump feel
         ApplyManualGravity();
-
-        // Update animations
-        UpdateAnimations();
 
         // Handle sprite flipping
         Flip();
@@ -106,6 +106,14 @@ public class KingMovement : MonoBehaviour
     #region Player Controls
     public void Move(InputAction.CallbackContext context)
     {
+        if (context.started)
+        {
+            animator.SetBool(moveHash, true);
+        }
+        else if (context.canceled)
+        {
+            animator.SetBool(moveHash, false);
+        }
         horizontal = context.ReadValue<Vector2>().x;
     }
 
@@ -138,6 +146,7 @@ public class KingMovement : MonoBehaviour
     #region Jump Logic
     private void StartJump()
     {
+        animator.SetBool(jumpHash, true);
         isJumping = true;
         jumpTimeCounter = maxJumpTime;
         rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
@@ -192,18 +201,6 @@ public class KingMovement : MonoBehaviour
     }
     #endregion
 
-    #region Animation
-    private void UpdateAnimations()
-    {
-        // Update jump/air animation
-        animator.SetBool(jumpHash, !isGrounded);
-
-        // Update running animation - only run if moving and grounded
-        bool isMoving = Mathf.Abs(horizontal) > 0.01f;
-        animator.SetBool(moveHash, isMoving && isGrounded);
-    }
-    #endregion
-
     #region Ground Check
     private bool IsGrounded()
     {
@@ -214,12 +211,13 @@ public class KingMovement : MonoBehaviour
     #region Sprite Flipping
     private void Flip()
     {
-        if ((isFacingRight && horizontal < -0.01f) || (!isFacingRight && horizontal > 0.01f))
+        if ((isFacingRight && horizontal < 0f) || (!isFacingRight && horizontal > 0f))
         {
             isFacingRight = !isFacingRight;
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
+            animator.SetBool(moveHash, true);
         }
     }
     #endregion
