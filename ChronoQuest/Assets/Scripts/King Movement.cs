@@ -10,6 +10,7 @@ public class KingMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 8f;
+    [SerializeField] private int dashMultiplier = 2;
     [SerializeField] private float jumpForce = 15f; // Initial jump force
     [SerializeField] private float maxJumpTime = 0.35f; // Maximum time player can hold jump
     [SerializeField] private float jumpCutMultiplier = 0.5f; // How much to cut jump when releasing button
@@ -29,7 +30,7 @@ public class KingMovement : MonoBehaviour
 
     // Movement variables
     private float horizontal;
-    private bool isFacingRight = true;
+    private bool isFacingRight = true, isDash = false;
 
     // Jump variables
     private bool isJumpPressed = false;
@@ -41,8 +42,7 @@ public class KingMovement : MonoBehaviour
     private bool isGrounded;
 
     // Animation hashes
-    private int jumpHash = 0;
-    private int moveHash = 0;
+    private int jumpHash = 0, moveHash = 0, fallHash = 0, dashHash = 0;
 
     #region Unity Lifecycle
     private void Start()
@@ -50,6 +50,8 @@ public class KingMovement : MonoBehaviour
         // Cache animation parameter hashes
         jumpHash = Animator.StringToHash("InAir");
         moveHash = Animator.StringToHash("Running");
+        fallHash = Animator.StringToHash("Falling");
+        dashHash = Animator.StringToHash("Dash");
 
         // Store the base gravity scale
         baseGravity = 10f;
@@ -79,6 +81,7 @@ public class KingMovement : MonoBehaviour
         if (!wasGrounded && isGrounded)
         {
             animator.SetBool(jumpHash, false);
+            animator.SetBool(fallHash, false);
             isJumping = false;
             jumpTimeCounter = 0f;
         }
@@ -97,7 +100,11 @@ public class KingMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // Apply horizontal movement
-        rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+        if (isDash)
+            rb.linearVelocity = new Vector2(horizontal * speed * dashMultiplier, rb.linearVelocity.y);
+        else
+            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+
     }
     #endregion
 
@@ -139,6 +146,20 @@ public class KingMovement : MonoBehaviour
             }
         }
     }
+
+    public void Dash(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            animator.SetBool(dashHash, true);
+            isDash = true;
+        }
+        else if (context.canceled)
+        {
+            animator.SetBool(dashHash, false);
+            isDash = false;
+        }
+    }
     #endregion
 
     #region Jump Logic
@@ -167,6 +188,7 @@ public class KingMovement : MonoBehaviour
         // Stop jumping if button released or moving downward
         if ((!isJumpPressed || rb.linearVelocity.y <= 0) && isJumping)
         {
+            animator.SetBool(fallHash, true);
             isJumping = false;
         }
     }

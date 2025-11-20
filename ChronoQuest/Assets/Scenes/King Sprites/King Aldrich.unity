@@ -225,7 +225,7 @@ Camera:
   far clip plane: 1000
   field of view: 34
   orthographic: 1
-  orthographic size: 1
+  orthographic size: 5
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -357,8 +357,8 @@ Transform:
   m_GameObject: {fileID: 2063921360}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.084, y: -1.143, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 1}
+  m_LocalPosition: {x: 0.1564, y: -3.5496, z: 0}
+  m_LocalScale: {x: 21.486687, y: 1.8991, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -421,6 +421,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &2071480598 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+  m_PrefabInstance: {fileID: 1155738381775654210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d70f0ed7ca3a19749b9c3bcd3dba914b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::KingMovement
 --- !u!1001 &1155738381775654210
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -435,7 +446,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.295
+      value: 2.62
       objectReference: {fileID: 0}
     - target: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_LocalPosition.z
@@ -468,6 +479,46 @@ PrefabInstance:
     - target: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionId
+      value: af81fb9c-5c08-4b45-8350-2163e355136f
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_ActionName
+      value: 'Gameplay/Dash[/Keyboard/shift]'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2071480598}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Dash
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: KingMovement, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_Name
