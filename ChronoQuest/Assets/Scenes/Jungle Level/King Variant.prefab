@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &396301805858456075
+--- !u!1 &1983617585327410507
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,43 +8,43 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7644473164218087694}
-  - component: {fileID: 4769172088654125227}
-  - component: {fileID: 5105133944351568986}
-  - component: {fileID: 957402940694715236}
-  - component: {fileID: 7309510859658960502}
-  - component: {fileID: 8745153998124105102}
-  - component: {fileID: 6745311189039688610}
+  - component: {fileID: 5549519819755182938}
+  - component: {fileID: 4838012923577655239}
+  - component: {fileID: 2895243698729488443}
+  - component: {fileID: 8113668164226696868}
+  - component: {fileID: 3368674215226152415}
+  - component: {fileID: 996762810443204516}
+  - component: {fileID: 1436122748623598314}
   m_Layer: 0
-  m_Name: King
+  m_Name: King Variant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7644473164218087694
+--- !u!4 &5549519819755182938
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0003452832, y: 0.0000029134776, z: -0.008437634, w: 0.99996436}
   m_LocalPosition: {x: -2.48, y: 0.94, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7681273808016022430}
+  - {fileID: 9138772862271510799}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -0.04, y: 0.001, z: -0.967}
---- !u!212 &4769172088654125227
+--- !u!212 &4838012923577655239
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -96,14 +96,14 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &5105133944351568986
+--- !u!95 &2895243698729488443
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 01bc9dc1b8e80534cb121a1070c91992, type: 2}
@@ -118,14 +118,14 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!50 &957402940694715236
+--- !u!50 &8113668164226696868
 Rigidbody2D:
   serializedVersion: 5
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
@@ -145,13 +145,13 @@ Rigidbody2D:
   m_SleepingMode: 0
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!70 &7309510859658960502
+--- !u!70 &3368674215226152415
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
@@ -182,13 +182,13 @@ CapsuleCollider2D:
   m_Offset: {x: 0.02081066, y: -0.6920205}
   m_Size: {x: 0.7938233, y: 1.5115328}
   m_Direction: 0
---- !u!114 &8745153998124105102
+--- !u!114 &996762810443204516
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6745311189039688610}
+      - m_Target: {fileID: 1436122748623598314}
         m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
         m_MethodName: Jump
         m_Mode: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
     m_ActionName: 'Gameplay/Jump[/Keyboard/w,/Keyboard/upArrow]'
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6745311189039688610}
+      - m_Target: {fileID: 1436122748623598314}
         m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
         m_MethodName: Move
         m_Mode: 0
@@ -240,71 +240,41 @@ MonoBehaviour:
     m_ActionId: 6ee59766-6869-48da-a7f1-82ef7c083f0c
     m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6772800204869268082}
-        m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
-        m_MethodName: Sprint
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: af81fb9c-5c08-4b45-8350-2163e355136f
     m_ActionName: 'Gameplay/Dash[/Keyboard/shift]'
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 6772800204869268082}
-        m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
-        m_MethodName: Dash
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: bfba83ad-d88d-48a1-90c1-7aaf0d246140
-    m_ActionName: 'Gameplay/Dash[/Keyboard/z]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
---- !u!114 &6745311189039688610
+--- !u!114 &1436122748623598314
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 396301805858456075}
+  m_GameObject: {fileID: 1983617585327410507}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d70f0ed7ca3a19749b9c3bcd3dba914b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::KingMovement
-  rb: {fileID: 957402940694715236}
+  rb: {fileID: 8113668164226696868}
   speed: 7
-  sprintMultiplier: 2
+  dashMultiplier: 2
   jumpForce: 9.5
   maxJumpTime: 3
   jumpCutMultiplier: 0.5
-  totalDashFrames: 3
-  dashReset: 15
   fallGravityMultiplier: 8
   lowJumpGravityMultiplier: 6
-  groundCheck: {fileID: 7681273808016022430}
+  groundCheck: {fileID: 9138772862271510799}
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
   groundCheckRadius: 0.1
-  animator: {fileID: 5105133944351568986}
---- !u!1 &6582012001470381474
+  animator: {fileID: 2895243698729488443}
+--- !u!1 &3630146509669714281
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -312,7 +282,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7681273808016022430}
+  - component: {fileID: 9138772862271510799}
   m_Layer: 6
   m_Name: GroundCheck
   m_TagString: Untagged
@@ -320,18 +290,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7681273808016022430
+--- !u!4 &9138772862271510799
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6582012001470381474}
+  m_GameObject: {fileID: 3630146509669714281}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.08, y: -1.41, z: -0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7644473164218087694}
+  m_Father: {fileID: 5549519819755182938}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
