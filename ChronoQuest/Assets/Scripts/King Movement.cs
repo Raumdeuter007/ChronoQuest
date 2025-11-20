@@ -10,11 +10,12 @@ public class KingMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 8f;
-    [SerializeField] private int dashMultiplier = 2;
+    [SerializeField] private int sprintMultiplier = 2;
     [SerializeField] private float jumpForce = 15f; // Initial jump force
     [SerializeField] private float maxJumpTime = 0.35f; // Maximum time player can hold jump
     [SerializeField] private float jumpCutMultiplier = 0.5f; // How much to cut jump when releasing button
-
+    [SerializeField] private int totalDashFrames = 3;
+    [SerializeField] private int dashReset = 15;
     [Header("Physics")]
     [SerializeField] private float fallGravityMultiplier = 2.5f; // Faster falling
     [SerializeField] private float lowJumpGravityMultiplier = 2f; // When releasing jump early
@@ -30,19 +31,19 @@ public class KingMovement : MonoBehaviour
 
     // Movement variables
     private float horizontal;
-    private bool isFacingRight = true, isDash = false;
-
+    private bool isFacingRight = true, isSprint = false, isDash = false, dashDirectionRight = false;
+    private int currDashReset = 0;
     // Jump variables
     private bool isJumpPressed = false;
     private bool isJumping = false;
-    private float jumpTimeCounter;
+    private float jumpTimeCounter, dashFrames = 0;
 
     // Ground state
     private bool wasGrounded;
     private bool isGrounded;
 
     // Animation hashes
-    private int jumpHash = 0, moveHash = 0, fallHash = 0, dashHash = 0;
+    private int jumpHash = 0, moveHash = 0, fallHash = 0, sprintHash = 0;
 
     #region Unity Lifecycle
     private void Start()
@@ -51,7 +52,7 @@ public class KingMovement : MonoBehaviour
         jumpHash = Animator.StringToHash("InAir");
         moveHash = Animator.StringToHash("Running");
         fallHash = Animator.StringToHash("Falling");
-        dashHash = Animator.StringToHash("Dash");
+        sprintHash = Animator.StringToHash("Sprint");
 
         // Store the base gravity scale
         baseGravity = 10f;
@@ -99,12 +100,14 @@ public class KingMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        // Apply horizontal movement
         if (isDash)
-            rb.linearVelocity = new Vector2(horizontal * speed * dashMultiplier, rb.linearVelocity.y);
+            HandleDash();
+        // Apply horizontal movement
+        else if (isSprint)
+            rb.linearVelocity = new Vector2(horizontal * speed * sprintMultiplier, rb.linearVelocity.y);
         else
             rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
-
+        currDashReset = currDashReset == 0 ? 0 : currDashReset - 1;
     }
     #endregion
 
@@ -147,17 +150,30 @@ public class KingMovement : MonoBehaviour
         }
     }
 
+    public void Sprint(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            animator.SetBool(sprintHash, true);
+            isSprint = true;
+        }
+        else if (context.canceled)
+        {
+            animator.SetBool(sprintHash, false);
+            isSprint = false;
+        }
+    }
+
     public void Dash(InputAction.CallbackContext context)
     {
         if (context.performed)
         {
-            animator.SetBool(dashHash, true);
-            isDash = true;
-        }
-        else if (context.canceled)
-        {
-            animator.SetBool(dashHash, false);
-            isDash = false;
+            if (!isDash && currDashReset == 0)
+            {
+                isDash = true;
+                dashDirectionRight = isFacingRight;
+                dashFrames = totalDashFrames;
+            }
         }
     }
     #endregion
@@ -225,6 +241,25 @@ public class KingMovement : MonoBehaviour
     private bool IsGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, groundLayer);
+    }
+    #endregion
+
+    #region Dash Logic
+    private void HandleDash()
+    {
+        if (isDash)
+        {
+            if (dashDirectionRight)
+                rb.linearVelocityX = speed * 10;
+            else
+                rb.linearVelocityX = speed * -10;
+            dashFrames -= 1;
+            if (dashFrames == 0)
+            {
+                isDash = false;
+                currDashReset = dashReset;
+            }
+        }
     }
     #endregion
 
