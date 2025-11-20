@@ -239,6 +239,38 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 6ee59766-6869-48da-a7f1-82ef7c083f0c
     m_ActionName: 'Gameplay/Move[/Keyboard/w,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6772800204869268082}
+        m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
+        m_MethodName: Sprint
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: af81fb9c-5c08-4b45-8350-2163e355136f
+    m_ActionName: 'Gameplay/Dash[/Keyboard/shift]'
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 6772800204869268082}
+        m_TargetAssemblyTypeName: KingMovement, Assembly-CSharp
+        m_MethodName: Dash
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: bfba83ad-d88d-48a1-90c1-7aaf0d246140
+    m_ActionName: 'Gameplay/Dash[/Keyboard/z]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Gameplay
@@ -258,9 +290,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KingMovement
   rb: {fileID: 4506548337005889084}
   speed: 6
+  sprintMultiplier: 2
   jumpForce: 14
   maxJumpTime: 1
   jumpCutMultiplier: 0.5
+  totalDashFrames: 3
+  dashReset: 15
   fallGravityMultiplier: 8
   lowJumpGravityMultiplier: 6
   groundCheck: {fileID: 3512951330351192471}
