@@ -179,18 +179,6 @@ PrefabInstance:
       propertyPath: m_SortingLayerID
       value: -42731751
       objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: b66f69d1-0f81-4040-9995-af160f9d7871
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: 'Gameplay/Attack[/Keyboard/x]'
-      objectReference: {fileID: 0}
     - target: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_Name
       value: King
@@ -208,14 +196,58 @@ PrefabInstance:
       value: 0.14937311
       objectReference: {fileID: 0}
     - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_Offset.x
       value: 0.03941956
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 178945880}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054997756}
+    - targetCorrespondingSourceObject: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1054997755}
   m_SourcePrefab: {fileID: 100100000, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+--- !u!1 &178945879
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 178945880}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &178945880
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 178945879}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.41, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1054997748}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &656304750
 GameObject:
   m_ObjectHideFlags: 0
@@ -298,6 +330,11 @@ PolygonCollider2D:
       - {x: 1.2, y: 0.5}
       - {x: 1.5, y: 0.3}
   m_UseDelaunayMesh: 0
+--- !u!1 &737944595 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+  m_PrefabInstance: {fileID: 130005837}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1025386532
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,7 +449,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
-  comboResetTime: 1.2
 --- !u!114 &1029374562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -435,6 +471,44 @@ Transform:
 --- !u!4 &1054997748 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
+  m_PrefabInstance: {fileID: 130005837}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1054997755
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737944595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0829e35d8225cd49929134f132fc242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  animator: {fileID: 1054997761}
+  attackDamage: 25
+  attackRange: 1
+  attackPoint: {fileID: 178945880}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+--- !u!114 &1054997756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 737944595}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f17ad2718240944a8ccae81d70dba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 100
+--- !u!95 &1054997761 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7367338328536404131, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
   m_PrefabInstance: {fileID: 130005837}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1217251477
