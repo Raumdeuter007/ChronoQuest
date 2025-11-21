@@ -6,19 +6,21 @@ public class PlayerAttack : MonoBehaviour
     [Header("Animator")]
     [SerializeField] private Animator animator;
 
-    [Header("Attack Settings")]
+    [Header("Damage Settings")]
     public int attackDamage = 25;
     public float attackRange = 0.5f;
     public Transform attackPoint;
     public LayerMask enemyLayers;
 
-    private PlayerMovement controls;
+    [Header("Combo Settings")]
+    public float comboResetTime = 1.2f; // Time before combo resets
+    private float comboTimer = 0f;
 
-    // Combo system
-    private int currentAttack = 0;        // 0 = no attack, 1 = attack1, etc.
-    private bool isAttacking = false;     // true while any attack is playing
-    private bool canCombo = false;        // true when combo window is open
-    private bool inputBuffered = false;   // true if player presses attack in combo window
+    private int comboStep = 0;       // 0 = no attack, 1-3 = attacks
+    private bool canCombo = false;   // Combo window is open
+    private bool attackQueued = false;
+
+    private PlayerMovement controls;
 
     private void Awake()
     {
@@ -26,121 +28,117 @@ public class PlayerAttack : MonoBehaviour
         controls.Gameplay.Attack.performed += ctx => OnAttackInput();
     }
 
-    private void OnEnable()
-    {
-        controls.Gameplay.Enable();
-    }
+    private void OnEnable() => controls.Gameplay.Enable();
+    private void OnDisable() => controls.Gameplay.Disable();
 
-    private void OnDisable()
+    private void Update()
     {
-        controls.Gameplay.Disable();
-    }
-
-    // ------------------------------------------------
-    // Called when the player presses attack
-    // ------------------------------------------------
-    private void OnAttackInput()
-    {
-        if (!isAttacking)
+        // Only allow combo timer reset for Attack1 and Attack2
+        if (comboStep > 0 && comboStep < 3)
         {
-            // Start first attack
-            currentAttack = 1;
-            isAttacking = true;
-            animator.SetTrigger("Attack1");
-        }
-        else
-        {
-            // Always buffer input if an attack is playing
-            inputBuffered = true;
-
-            // If combo window is already open, trigger next attack immediately
-            if (canCombo)
+            comboTimer += Time.deltaTime;
+            if (comboTimer >= comboResetTime)
             {
-                TriggerNextAttack();
-                inputBuffered = false;
-                canCombo = false;
+                Debug.Log("❗ Combo timer expired. Resetting combo.");
+                EndCombo();
             }
         }
     }
 
 
-    // ------------------------------------------------
-    // Called by animation event: opens the combo window
-    // ------------------------------------------------
+    private void OnAttackInput()
+    {
+        if (comboStep < 3)
+        {
+            comboStep++;
+            animator.SetInteger("AttackIndex", comboStep);
+            animator.SetTrigger("Attack");
+            comboTimer = 0f;
+        }
+        else
+        {
+            // already at max combo
+            attackQueued = true;
+        }
+    }
+
+
+    private void StartAttack(int step)
+    {
+        comboStep = step;
+        comboTimer = 0f;
+        attackQueued = false;
+
+        animator.SetInteger("AttackIndex", comboStep);
+        animator.SetTrigger("Attack");
+
+        Debug.Log($"➡ Starting Attack {comboStep}");
+    }
+
+    // Called from Animation Event: opens combo window for next attack (only for step 1 and 2)
     public void OpenComboWindow()
     {
         canCombo = true;
+        Debug.Log($"➡ OpenComboWindow called. comboStep={comboStep}, attackQueued={attackQueued}");
 
-        // If player already pressed attack, immediately trigger next attack
-        if (inputBuffered)
+        if (attackQueued && comboStep < 3)
         {
-            TriggerNextAttack();
-            inputBuffered = false;
-            canCombo = false;
+            PlayNextComboStep();
         }
     }
 
-    // ------------------------------------------------
-    // Called by animation event: closes the combo window
-    // ------------------------------------------------
+
+    // Called from Animation Event: closes combo window after attack
     public void CloseComboWindow()
     {
         canCombo = false;
-        inputBuffered = false;
+        attackQueued = false;
+        Debug.Log($"⬛ CloseComboWindow called. comboStep={comboStep}");
+
     }
 
-    // ------------------------------------------------
-    // Called by animation event at the end of an attack
-    // ------------------------------------------------
-    public void EndAttack()
+    private void PlayNextComboStep()
     {
-        isAttacking = false;
-        currentAttack = 0;
+        if (comboStep < 3 && attackQueued)
+        {
+            comboStep++;
+            comboTimer = 0f;
+            attackQueued = false;
+
+            animator.SetInteger("AttackIndex", comboStep);
+            animator.SetTrigger("Attack");
+
+            Debug.Log($"➡ Playing next attack: {comboStep}");
+        }
+    }
+
+    public void EndCombo()
+    {
+        Debug.Log("🔵 Combo ended. Resetting combo.");
+        comboStep = 0;
+        comboTimer = 0f;
         canCombo = false;
-        inputBuffered = false;
+        attackQueued = false;
+        animator.SetInteger("AttackIndex", 0);
     }
 
-    // ------------------------------------------------
-    // Handles chaining to next attack
-    // ------------------------------------------------
-    private void TriggerNextAttack()
-    {
-        if (currentAttack == 1)
-        {
-            currentAttack = 2;
-            animator.SetTrigger("Attack2");
-        }
-        else if (currentAttack == 2)
-        {
-            currentAttack = 3;
-            animator.SetTrigger("Attack3");
-        }
-    }
-
-    // ------------------------------------------------
-    // Damage logic remains unchanged
-    // ------------------------------------------------
     public void DealDamage()
     {
-        Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(
-            attackPoint.position,
-            attackRange,
-            enemyLayers
-        );
+        Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
 
-        foreach (Collider2D enemy in hitEnemies)
+        foreach (var hit in hits)
         {
-            var health = enemy.GetComponent<PlayerHealth>();
-            if (health != null)
-                health.TakeDamage(attackDamage);
+            var health = hit.GetComponent<PlayerHealth>();
+            if (health != null) health.TakeDamage(attackDamage);
         }
     }
 
     private void OnDrawGizmosSelected()
     {
-        if (attackPoint == null) return;
-
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        if (attackPoint != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(attackPoint.position, attackRange);
+        }
     }
 }

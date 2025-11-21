@@ -15,6 +15,8 @@ GameObject:
   - component: {fileID: 6965974305317279047}
   - component: {fileID: 4883808129897482044}
   - component: {fileID: 6772800204869268082}
+  - component: {fileID: 7242837178295402656}
+  - component: {fileID: 7931629772047869119}
   m_Layer: 0
   m_Name: King
   m_TagString: Untagged
@@ -32,10 +34,11 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 1}
+  m_LocalScale: {x: 4, y: 3.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3512951330351192471}
+  - {fileID: 5039094379546875709}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &952477235873685343
@@ -82,8 +85,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -42731751
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 4723107735738678597, guid: 0e3502a80399d164ea01f1868f65acbf, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -179,8 +182,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.05701092, y: -0.21283823}
-  m_Size: {x: 0.13074714, y: 0.55316603}
+  m_Offset: {x: 0.03941956, y: -0.21283823}
+  m_Size: {x: 0.14937311, y: 0.55316603}
   m_Direction: 0
 --- !u!114 &4883808129897482044
 MonoBehaviour:
@@ -271,6 +274,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: bfba83ad-d88d-48a1-90c1-7aaf0d246140
     m_ActionName: 'Gameplay/Dash[/Keyboard/z]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b66f69d1-0f81-4040-9995-af160f9d7871
+    m_ActionName: 'Gameplay/Attack[/Keyboard/x]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Keyboard
   m_DefaultActionMap: Gameplay
@@ -290,8 +297,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KingMovement
   rb: {fileID: 4506548337005889084}
   speed: 6
-  sprintMultiplier: 2
-  jumpForce: 14
+  sprintMultiplier: 1.6
+  jumpForce: 10
   maxJumpTime: 1
   jumpCutMultiplier: 0.5
   totalDashFrames: 3
@@ -304,6 +311,71 @@ MonoBehaviour:
     m_Bits: 64
   groundCheckRadius: 0.2
   animator: {fileID: 7367338328536404131}
+--- !u!114 &7242837178295402656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6166776233713814995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8f17ad2718240944a8ccae81d70dba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerHealth
+  maxHealth: 100
+  currentHealth: 100
+--- !u!114 &7931629772047869119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6166776233713814995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0829e35d8225cd49929134f132fc242, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
+  animator: {fileID: 7367338328536404131}
+  attackDamage: 25
+  attackRange: 1
+  attackPoint: {fileID: 5039094379546875709}
+  enemyLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  comboResetTime: 1.5
+--- !u!1 &8501068511345302938
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5039094379546875709}
+  m_Layer: 0
+  m_Name: AttackPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5039094379546875709
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8501068511345302938}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.41, y: -0.1, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 220721734414932930}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8967560642986838513
 GameObject:
   m_ObjectHideFlags: 0
