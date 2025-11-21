@@ -295,7 +295,7 @@ MonoBehaviour:
   maxJumpTime: 1
   jumpCutMultiplier: 0.5
   totalDashFrames: 3
-  dashReset: 15
+  dashReset: 38
   fallGravityMultiplier: 8
   lowJumpGravityMultiplier: 6
   groundCheck: {fileID: 3512951330351192471}
