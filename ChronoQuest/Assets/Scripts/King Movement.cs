@@ -10,7 +10,7 @@ public class KingMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 8f;
-    [SerializeField] private int sprintMultiplier = 2;
+    [SerializeField] private float sprintMultiplier = 1.6f; //changed to float
     [SerializeField] private float jumpForce = 15f; // Initial jump force
     [SerializeField] private float maxJumpTime = 0.35f; // Maximum time player can hold jump
     [SerializeField] private float jumpCutMultiplier = 0.5f; // How much to cut jump when releasing button
@@ -101,14 +101,22 @@ public class KingMovement : MonoBehaviour
     private void FixedUpdate()
     {
         if (isDash)
+        {
             HandleDash();
-        // Apply horizontal movement
-        else if (isSprint)
-            rb.linearVelocity = new Vector2(horizontal * speed * sprintMultiplier, rb.linearVelocity.y);
-        else
-            rb.linearVelocity = new Vector2(horizontal * speed, rb.linearVelocity.y);
+            return;
+        }
+
+        // Only apply sprint boost if grounded
+        float currentSpeed = speed;
+
+        if (isSprint && isGrounded)
+            currentSpeed *= sprintMultiplier;
+
+        rb.linearVelocity = new Vector2(horizontal * currentSpeed, rb.linearVelocity.y);
+
         currDashReset = currDashReset == 0 ? 0 : currDashReset - 1;
     }
+
     #endregion
 
     #region Player Controls
@@ -249,11 +257,16 @@ public class KingMovement : MonoBehaviour
     {
         if (isDash)
         {
+            // Stop upward movement when dash begins
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+
             if (dashDirectionRight)
                 rb.linearVelocityX = speed * 10;
             else
                 rb.linearVelocityX = speed * -10;
+
             dashFrames -= 1;
+
             if (dashFrames == 0)
             {
                 isDash = false;
@@ -261,6 +274,7 @@ public class KingMovement : MonoBehaviour
             }
         }
     }
+
     #endregion
 
     #region Sprite Flipping

@@ -12,7 +12,7 @@ TagManager:
   - Water
   - UI
   - Ground
-  - 
+  - Enemy Layer
   - 
   - 
   - 
@@ -44,11 +44,17 @@ TagManager:
   - name: Background
     uniqueID: 386632689
     locked: 0
-  - name: Enemies
+  - name: Middleground
     uniqueID: 661072941
     locked: 0
-  - name: Player
+  - name: Tilemap
     uniqueID: 3008542035
+    locked: 0
+  - name: Player
+    uniqueID: 4252235545
+    locked: 0
+  - name: Enemy
+    uniqueID: 3701805361
     locked: 0
   m_RenderingLayers:
   - Default
