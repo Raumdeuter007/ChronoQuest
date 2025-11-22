@@ -20,7 +20,6 @@ public class PlayerAttack : MonoBehaviour
         if (!tag.IsTag("Attack") && !tag.IsTag("Transition"))
         {
             comboStep = 0;
-            animator.SetInteger("AttackIndex", 0);
         }
     }
 
@@ -32,7 +31,7 @@ public class PlayerAttack : MonoBehaviour
             {
                 comboStep++;
                 if (comboStep > 3) comboStep = 1;
-                animator.SetInteger("AttackIndex", comboStep);
+                animator.SetTrigger("Attack");
             }
         }
     }
