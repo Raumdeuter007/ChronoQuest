@@ -128,10 +128,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.41
       objectReference: {fileID: 0}
@@ -171,77 +167,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 952477235873685343, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_SortingLayer
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 952477235873685343, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_SortingLayerID
-      value: -42731751
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.size
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionId
-      value: b66f69d1-0f81-4040-9995-af160f9d7871
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_ActionName
-      value: 'Gameplay/Attack[/Keyboard/x]'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1054997749}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnAttackInput
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: PlayerAttack, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4883808129897482044, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
     - target: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
       propertyPath: m_Name
       value: King
-      objectReference: {fileID: 0}
-    - target: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: jumpForce
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: sprintMultiplier
-      value: 1.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Size.x
-      value: 0.14937311
-      objectReference: {fileID: 0}
-    - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.03941956
-      objectReference: {fileID: 0}
-    - target: {fileID: 7931629772047869119, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: comboResetTime
-      value: 5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -557,7 +485,6 @@ MonoBehaviour:
   enemyLayers:
     serializedVersion: 2
     m_Bits: 0
-  comboResetTime: 10
 --- !u!114 &1029374562
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -582,17 +509,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 220721734414932930, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
   m_PrefabInstance: {fileID: 130005837}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1054997749 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7931629772047869119, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-  m_PrefabInstance: {fileID: 130005837}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0829e35d8225cd49929134f132fc242, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PlayerAttack
 --- !u!1001 &1217251477
 PrefabInstance:
   m_ObjectHideFlags: 0
