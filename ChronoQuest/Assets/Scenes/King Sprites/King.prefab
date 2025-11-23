@@ -310,7 +310,7 @@ MonoBehaviour:
   rb: {fileID: 4506548337005889084}
   speed: 6
   sprintMultiplier: 1.6
-  jumpForce: 10
+  jumpForce: 15
   maxJumpTime: 1
   jumpCutMultiplier: 0.5
   totalDashFrames: 3

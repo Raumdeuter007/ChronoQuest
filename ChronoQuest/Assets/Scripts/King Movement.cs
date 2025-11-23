@@ -208,11 +208,12 @@ public class KingMovement : MonoBehaviour
                 isJumping = false;
             }
         }
+        if (rb.linearVelocityY < 0)
+            animator.SetBool(fallHash, true);
 
         // Stop jumping if button released or moving downward
         if ((!isJumpPressed || rb.linearVelocity.y <= 0) && isJumping)
         {
-            animator.SetBool(fallHash, true);
             isJumping = false;
         }
     }
