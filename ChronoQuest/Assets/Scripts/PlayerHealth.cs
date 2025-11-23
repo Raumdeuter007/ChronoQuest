@@ -36,6 +36,7 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died!");
+        Destroy(gameObject);
         // Disable movement, play animation, reload scene, etc.
         // GetComponent<KingMovement>().enabled = false;
     }

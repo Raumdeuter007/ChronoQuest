@@ -36,66 +36,19 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    // private void StartAttack(int step)
-    // {
-    //     comboStep = step;
-    //     comboTimer = 0;
-    //     attackQueued = false;
-
-    //     animator.SetInteger("AttackIndex", comboStep);
-
-    //     Debug.Log($"➡ Starting Attack {comboStep}");
-    // }
-
-    // Called from Animation Event: opens combo window for next attack (only for step 1 and 2)
-    // public void OpenComboWindow()
-    // {
-    //     Debug.Log($"➡ OpenComboWindow called. comboStep={comboStep}, attackQueued={attackQueued}");
-
-    //     if (attackQueued && comboStep < 3)
-    //     {
-    //         PlayNextComboStep();
-    //     }
-    // }
-
-
-    // Called from Animation Event: closes combo window after attack
-    // public void CloseComboWindow()
-    // {
-    //     attackQueued = false;
-    //     Debug.Log($"⬛ CloseComboWindow called. comboStep={comboStep}");
-    // }
-
-    // private void PlayNextComboStep()
-    // {
-    //     if (comboStep < 3 && attackQueued)
-    //     {
-    //         comboStep++;
-    //         comboTimer = 0;
-    //         attackQueued = false;
-
-    //         animator.SetInteger("AttackIndex", comboStep);
-
-    //         Debug.Log($"➡ Playing next attack: {comboStep}");
-    //     }
-    // }
-
-    // public void EndCombo()
-    // {
-    //     Debug.Log("🔵 Combo ended. Resetting combo.");
-    //     comboStep = 0;
-    //     comboTimer = 0;
-    //     attackQueued = false;
-    //     animator.SetInteger("AttackIndex", 0);
-    // }
-
     public void DealDamage()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+        if (attackPoint == null)
+        {
+            Debug.LogError("❌ attackPoint is NOT assigned!");
+            return;
+        }
 
+        Debug.Log("DealDamage was called correctly");
         foreach (var hit in hits)
         {
-            var health = hit.GetComponent<PlayerHealth>();
+            var health = hit.GetComponentInParent<EnemyHealth>();
             if (health != null) health.TakeDamage(attackDamage);
         }
     }

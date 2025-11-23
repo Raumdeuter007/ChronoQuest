@@ -10,15 +10,16 @@ public class KingMovement : MonoBehaviour
 
     [Header("Player Settings")]
     [SerializeField] private float speed = 8f;
-    [SerializeField] private float sprintMultiplier = 1.6f; //changed to float
-    [SerializeField] private float jumpForce = 15f; // Initial jump force
-    [SerializeField] private float maxJumpTime = 0.35f; // Maximum time player can hold jump
-    [SerializeField] private float jumpCutMultiplier = 0.5f; // How much to cut jump when releasing button
+    [SerializeField] private float sprintMultiplier = 1.6f;
+    [SerializeField] private float jumpForce = 15f;
+    [SerializeField] private float maxJumpTime = 0.35f;
+    [SerializeField] private float jumpCutMultiplier = 0.5f;
     [SerializeField] private int totalDashFrames = 3;
     [SerializeField] private int dashReset = 15;
+
     [Header("Physics")]
-    [SerializeField] private float fallGravityMultiplier = 2.5f; // Faster falling
-    [SerializeField] private float lowJumpGravityMultiplier = 2f; // When releasing jump early
+    [SerializeField] private float fallGravityMultiplier = 2.5f;
+    [SerializeField] private float lowJumpGravityMultiplier = 2f;
     private float baseGravity;
 
     [Header("Grounding")]
@@ -33,6 +34,7 @@ public class KingMovement : MonoBehaviour
     private float horizontal;
     private bool isFacingRight = true, isSprint = false, isDash = false, dashDirectionRight = false;
     private int currDashReset = 0;
+
     // Jump variables
     private bool isJumpPressed = false;
     private bool isJumping = false;
@@ -43,7 +45,15 @@ public class KingMovement : MonoBehaviour
     private bool isGrounded;
 
     // Animation hashes
-    private int jumpHash = 0, moveHash = 0, fallHash = 0, sprintHash = 0;
+    private int jumpHash, moveHash, fallHash, sprintHash, hitTriggerHash;
+
+    public float knockBackForce;
+    public float knockBackCounter;
+    public float knockBackTotalTime;
+    public bool knockFromRight;
+
+    // Internal flag to avoid multiple triggers
+    private bool hasTriggeredHit = false;
 
     #region Unity Lifecycle
     private void Start()
@@ -53,13 +63,12 @@ public class KingMovement : MonoBehaviour
         moveHash = Animator.StringToHash("Running");
         fallHash = Animator.StringToHash("Falling");
         sprintHash = Animator.StringToHash("Sprint");
+        hitTriggerHash = Animator.StringToHash("Hit"); // Changed to Trigger
 
-        // Store the base gravity scale
         baseGravity = 10f;
-
-        // Delay initial ground check to allow physics to settle
         Invoke(nameof(InitializeGroundState), 0.05f);
     }
+
     private void InitializeGroundState()
     {
         isGrounded = IsGrounded();
@@ -72,14 +81,11 @@ public class KingMovement : MonoBehaviour
         wasGrounded = isGrounded;
         isGrounded = IsGrounded();
 
-        // Zero Y velocity when grounded
-        if (isGrounded && rb.linearVelocity.y <= 0)
-        {
+        if (isGrounded && rb.linearVelocity.y <= 0 && knockBackCounter <= 0)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-        }
 
         // Handle landing
-        if (!wasGrounded && isGrounded)
+        if (!wasGrounded && isGrounded && knockBackCounter <= 0)
         {
             animator.SetBool(jumpHash, false);
             animator.SetBool(fallHash, false);
@@ -87,14 +93,8 @@ public class KingMovement : MonoBehaviour
             jumpTimeCounter = 0f;
         }
 
-
-        // Handle jump logic
         HandleJump();
-
-        // Apply gravity multipliers for better jump feel
         ApplyManualGravity();
-
-        // Handle sprite flipping
         Flip();
     }
 
@@ -106,30 +106,39 @@ public class KingMovement : MonoBehaviour
             return;
         }
 
-        // Only apply sprint boost if grounded
         float currentSpeed = speed;
-
         if (isSprint && isGrounded)
             currentSpeed *= sprintMultiplier;
 
-        rb.linearVelocity = new Vector2(horizontal * currentSpeed, rb.linearVelocity.y);
+        // Handle knockback
+        if (knockBackCounter > 0)
+        {
+            knockBackCounter -= Time.deltaTime;
 
-        currDashReset = currDashReset == 0 ? 0 : currDashReset - 1;
+            if (!hasTriggeredHit && animator != null)
+            {
+                animator.SetTrigger(hitTriggerHash); // Trigger only once
+                hasTriggeredHit = true;
+            }
+        }
+        else
+        {
+            rb.linearVelocity = new Vector2(horizontal * currentSpeed, rb.linearVelocity.y);
+            hasTriggeredHit = false; // Reset for next knockback
+        }
+
+        currDashReset = Mathf.Max(currDashReset - 1, 0);
     }
-
     #endregion
 
     #region Player Controls
     public void Move(InputAction.CallbackContext context)
     {
         if (context.started)
-        {
             animator.SetBool(moveHash, true);
-        }
         else if (context.canceled)
-        {
             animator.SetBool(moveHash, false);
-        }
+
         horizontal = context.ReadValue<Vector2>().x;
     }
 
@@ -137,24 +146,14 @@ public class KingMovement : MonoBehaviour
     {
         if (context.performed)
         {
-            // Jump button pressed
             isJumpPressed = true;
-
-            if (isGrounded && !isJumping)
-            {
-                StartJump();
-            }
+            if (isGrounded && !isJumping) StartJump();
         }
         else if (context.canceled)
         {
-            // Jump button released
             isJumpPressed = false;
-
-            // Cut jump short if player releases button early
             if (isJumping && rb.linearVelocity.y > 0f)
-            {
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y * jumpCutMultiplier);
-            }
         }
     }
 
@@ -174,14 +173,12 @@ public class KingMovement : MonoBehaviour
 
     public void Dash(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (knockBackCounter > 0) return;
+        if (context.performed && !isDash && currDashReset == 0)
         {
-            if (!isDash && currDashReset == 0)
-            {
-                isDash = true;
-                dashDirectionRight = isFacingRight;
-                dashFrames = totalDashFrames;
-            }
+            isDash = true;
+            dashDirectionRight = isFacingRight;
+            dashFrames = totalDashFrames;
         }
     }
     #endregion
@@ -200,16 +197,11 @@ public class KingMovement : MonoBehaviour
         if (isJumping && isJumpPressed)
         {
             if (jumpTimeCounter > 0)
-            {
                 jumpTimeCounter -= Time.deltaTime;
-            }
             else
-            {
                 isJumping = false;
-            }
         }
 
-        // Stop jumping if button released or moving downward
         if ((!isJumpPressed || rb.linearVelocity.y <= 0) && isJumping)
         {
             animator.SetBool(fallHash, true);
@@ -221,24 +213,15 @@ public class KingMovement : MonoBehaviour
     {
         if (!isGrounded)
         {
-            // Apply gravity based on jump state
-            float gravityToApply;
+            if (knockBackCounter > 0) return;
 
+            float gravityToApply;
             if (rb.linearVelocity.y < 0)
-            {
-                // Falling
                 gravityToApply = baseGravity * fallGravityMultiplier;
-            }
             else if (rb.linearVelocity.y > 0 && !isJumpPressed)
-            {
-                // Rising but not holding jump
                 gravityToApply = baseGravity * lowJumpGravityMultiplier;
-            }
             else
-            {
-                // Normal gravity
                 gravityToApply = baseGravity;
-            }
 
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, rb.linearVelocity.y - gravityToApply * Time.deltaTime);
         }
@@ -255,26 +238,22 @@ public class KingMovement : MonoBehaviour
     #region Dash Logic
     private void HandleDash()
     {
-        if (isDash)
+        if (!isDash) return;
+
+        rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+
+        if (dashDirectionRight)
+            rb.linearVelocity = new Vector2(speed * 10, rb.linearVelocity.y);
+        else
+            rb.linearVelocity = new Vector2(-speed * 10, rb.linearVelocity.y);
+
+        dashFrames -= 1;
+        if (dashFrames <= 0)
         {
-            // Stop upward movement when dash begins
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
-            if (dashDirectionRight)
-                rb.linearVelocityX = speed * 10;
-            else
-                rb.linearVelocityX = speed * -10;
-
-            dashFrames -= 1;
-
-            if (dashFrames == 0)
-            {
-                isDash = false;
-                currDashReset = dashReset;
-            }
+            isDash = false;
+            currDashReset = dashReset;
         }
     }
-
     #endregion
 
     #region Sprite Flipping
@@ -286,7 +265,6 @@ public class KingMovement : MonoBehaviour
             Vector3 localScale = transform.localScale;
             localScale.x *= -1f;
             transform.localScale = localScale;
-            animator.SetBool(moveHash, true);
         }
     }
     #endregion
