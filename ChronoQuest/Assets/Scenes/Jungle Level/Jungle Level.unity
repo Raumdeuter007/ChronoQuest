@@ -202,42 +202,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: King
       objectReference: {fileID: 0}
-    - target: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6166776233713814995, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: jumpForce
-      value: 14
-      objectReference: {fileID: 0}
-    - target: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: knockBackForce
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6772800204869268082, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: knockBackTotalTime
-      value: 0.6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Size.x
-      value: 0.13381213
-      objectReference: {fileID: 0}
-    - target: {fileID: 6965974305317279047, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Offset.x
-      value: 0.047200054
-      objectReference: {fileID: 0}
-    - target: {fileID: 8501068511345302938, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
-    - target: {fileID: 8967560642986838513, guid: 55752f5d69f36394d9c812b41708f860, type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
