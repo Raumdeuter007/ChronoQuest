@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class EnemyHealth : MonoBehaviour
 
         // If animator is on child
         animator = GetComponentInChildren<Animator>();
-
+        animator.SetBool("Dead", false);
         // Get the movement script from this enemy
         movement = GetComponent<WizardMovement>();
     }
@@ -41,6 +42,18 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        movement.isStunned = true;
+        movement.stunCounter = 1;
+        if (!animator.GetBool("Dead"))
+        {
+            animator.SetBool("Dead", true);
+            animator.SetTrigger("Death");
+        }
+        StartCoroutine(Death());
+    }
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }
