@@ -5,10 +5,11 @@ public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
-    private Animator animator;
-    private WizardMovement movement;   // Reference to movement script
+    public float deathTime = 1;
+    protected Animator animator;
+    protected WizardMovement movement;   // Reference to movement script
 
-    void Start()
+    protected void Start()
     {
         currentHealth = maxHealth;
 
@@ -53,7 +54,7 @@ public class EnemyHealth : MonoBehaviour
     }
     IEnumerator Death()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);
     }
 }

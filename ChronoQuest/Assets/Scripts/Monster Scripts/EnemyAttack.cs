@@ -10,10 +10,10 @@ public class EnemyAttack : MonoBehaviour
     public LayerMask playerLayer;
 
     private float attackTimer = 0f;
-    private Animator animator;
-    private Collider2D playerHit;
+    [SerializeField] protected Animator animator;
+    protected Collider2D playerHit;
 
-    void Start()
+    protected void Start()
     {
         animator = GetComponentInChildren<Animator>();
     }
