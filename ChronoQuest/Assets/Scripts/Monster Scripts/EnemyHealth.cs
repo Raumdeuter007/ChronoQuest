@@ -9,7 +9,6 @@ public class EnemyHealth : MonoBehaviour
     public int hitTakenCount = 0;
     public HealHUD healHUD;
     public float deathTime = 1;
-    protected Animator animator;
     protected WizardMovement movement;   // Reference to movement script
 
     protected void Start()
