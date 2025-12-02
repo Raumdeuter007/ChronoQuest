@@ -6,7 +6,8 @@ public class EnemyHealth : MonoBehaviour
     public int currentHealth;
     private Animator animator;
     private WizardMovement movement;   // Reference to movement script
-
+    public int hitTakenCount = 0;
+    public HealHUD healHUD;       
     void Start()
     {
         currentHealth = maxHealth;
@@ -21,6 +22,13 @@ public class EnemyHealth : MonoBehaviour
     public void TakeDamage(int damage)
     {
         currentHealth -= damage;
+        hitTakenCount++;
+
+        if (hitTakenCount == 2)
+        {
+            healHUD.Heal();
+            hitTakenCount = 0;
+        }
 
         // Stop movement while hit
         if (movement != null)
@@ -37,7 +45,6 @@ public class EnemyHealth : MonoBehaviour
         if (currentHealth <= 0)
             Die();
     }
-
 
     void Die()
     {
