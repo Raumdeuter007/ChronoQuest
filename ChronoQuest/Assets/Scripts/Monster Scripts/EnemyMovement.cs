@@ -33,7 +33,7 @@ public class WizardMovement : MonoBehaviour
     public EnemyAttack attackScript;
     public float attackDistance = 1f; // distance to player to trigger attack
 
-    private void Start()
+    protected void Start()
     {
         if (patrolPoints.Length < 2)
         {

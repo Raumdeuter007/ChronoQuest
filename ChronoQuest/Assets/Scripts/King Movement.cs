@@ -84,6 +84,9 @@ public class KingMovement : MonoBehaviour
         if (isGrounded && rb.linearVelocity.y <= 0 && knockBackCounter <= 0)
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
 
+        if (!isJumping && wasGrounded && !isGrounded)
+            animator.SetBool(fallHash, true);
+
         // Handle landing
         if (!wasGrounded && isGrounded && knockBackCounter <= 0)
         {

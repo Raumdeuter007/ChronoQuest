@@ -1,25 +1,29 @@
 using UnityEngine;
+using System.Collections;
 
 public class EnemyHealth : MonoBehaviour
 {
     public int maxHealth = 100;
     public int currentHealth;
     private Animator animator;
-    private WizardMovement movement;   // Reference to movement script
     public int hitTakenCount = 0;
-    public HealHUD healHUD;       
-    void Start()
+    public HealHUD healHUD;
+    public float deathTime = 1;
+    protected Animator animator;
+    protected WizardMovement movement;   // Reference to movement script
+
+    protected void Start()
     {
         currentHealth = maxHealth;
 
         // If animator is on child
         animator = GetComponentInChildren<Animator>();
-
+        animator.SetBool("Dead", false);
         // Get the movement script from this enemy
         movement = GetComponent<WizardMovement>();
     }
 
-    public void TakeDamage(int damage)
+    public virtual void TakeDamage(int damage)
     {
         currentHealth -= damage;
         hitTakenCount++;
@@ -48,6 +52,18 @@ public class EnemyHealth : MonoBehaviour
 
     void Die()
     {
+        movement.isStunned = true;
+        movement.stunCounter = 1;
+        if (!animator.GetBool("Dead"))
+        {
+            animator.SetBool("Dead", true);
+            animator.SetTrigger("Death");
+        }
+        StartCoroutine(Death());
+    }
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);
     }
 }
