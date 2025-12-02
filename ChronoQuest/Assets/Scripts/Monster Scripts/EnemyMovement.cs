@@ -33,7 +33,7 @@ public class WizardMovement : MonoBehaviour
     public EnemyAttack attackScript;
     public float attackDistance = 1f; // distance to player to trigger attack
 
-    private void Start()
+    protected void Start()
     {
         if (patrolPoints.Length < 2)
         {
@@ -65,10 +65,6 @@ public class WizardMovement : MonoBehaviour
             return;
         }
 
-        if (anim != null)
-        {
-            Debug.Log("Animator isMoving: " + anim.GetBool("isMoving"));
-        }
 
         if (isReturningToPatrol || isWaitingAtPatrolPoint)
         {
@@ -205,7 +201,7 @@ public class WizardMovement : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool("isMoving", moving);
-            Debug.Log("Set isMoving = " + moving);
+            //Debug.Log("Set isMoving = " + moving);
         }
     }
 
