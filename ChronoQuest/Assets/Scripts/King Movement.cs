@@ -268,4 +268,5 @@ public class KingMovement : MonoBehaviour
         }
     }
     #endregion
+
 }
