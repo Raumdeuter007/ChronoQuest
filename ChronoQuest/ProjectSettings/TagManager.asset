@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - MovingPlatform
   layers:
   - Default
   - TransparentFX
@@ -50,11 +51,11 @@ TagManager:
   - name: Tilemap
     uniqueID: 3008542035
     locked: 0
-  - name: Player
-    uniqueID: 4252235545
-    locked: 0
   - name: Enemy
     uniqueID: 3701805361
+    locked: 0
+  - name: Player
+    uniqueID: 4252235545
     locked: 0
   m_RenderingLayers:
   - Default
