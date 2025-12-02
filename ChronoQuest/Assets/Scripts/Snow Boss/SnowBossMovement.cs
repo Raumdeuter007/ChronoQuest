@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-public class BossMovement : WizardMovement
+public class SnowBossMovement : WizardMovement
 {
     [Header("Boss Behavior Settings")]
     public float idleTimeBeforeTeleport = 5f; // Time in idle before starting teleport
@@ -18,16 +18,16 @@ public class BossMovement : WizardMovement
 
     private Vector3 spawnPosition;
     private float idleTimer = 0f;
-    private BossHealth bossHealth;
-    private BossAttack bossAttack;
+    private SnowBossHealth bossHealth;
+    private SnowBossAttack bossAttack;
     private bool wasAttackedDuringIdle = false;
 
     new void Start()
     {
         // Don't call base.Start() to avoid patrol initialization
         anim = GetComponentInChildren<Animator>();
-        bossHealth = GetComponent<BossHealth>();
-        bossAttack = GetComponent<BossAttack>();
+        bossHealth = GetComponent<SnowBossHealth>();
+        bossAttack = GetComponent<SnowBossAttack>();
         attackScript = bossAttack;
 
         spawnPosition = transform.position;
@@ -52,12 +52,6 @@ public class BossMovement : WizardMovement
             case BossState.Walking:
                 HandleWalkingState();
                 break;
-                // case BossState.TeleportAttack:
-                //     // Handled by BossAttack coroutine
-                //     break;
-                // case BossState.Stunned:
-                //     // Handled by BossHealth
-                //     break;
         }
     }
 
@@ -66,7 +60,7 @@ public class BossMovement : WizardMovement
         SetMoving(false);
 
         // Check distance to player
-        float distanceToPlayer = Vector2.Distance(transform.position, playerTransform.position);
+        float distanceToPlayer = Math.Abs(transform.position.x - playerTransform.position.x);
 
         if (distanceToPlayer > walkDistance)
         {
@@ -143,7 +137,7 @@ public class BossMovement : WizardMovement
     {
         // Determine behind direction based on player facing
         float direction = (playerTransform.localScale.x > 0) ? -1f : 1f;
-        Vector3 behindPosition = playerTransform.position + new Vector3(direction * teleportDistanceBehind, 0, 0);
+        Vector3 behindPosition = playerTransform.position + new Vector3(direction * teleportDistanceBehind, 0.7f, 0);
 
         // Check if within bounds, otherwise teleport in front
         if (IsWithinBounds(behindPosition))
@@ -153,7 +147,7 @@ public class BossMovement : WizardMovement
         else
         {
             direction *= -1;
-            Vector3 frontPosition = playerTransform.position + new Vector3(direction * teleportDistanceBehind, 0, 0);
+            Vector3 frontPosition = playerTransform.position + new Vector3(direction * teleportDistanceBehind, 0.7f, 0);
             return ClampToBounds(frontPosition);
         }
     }

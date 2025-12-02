@@ -144,7 +144,7 @@ Transform:
   m_GameObject: {fileID: 84260144}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: -1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -390,7 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2803a0c59632914cac817a3ec94c4f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossHealth
-  maxHealth: 300
+  maxHealth: 325
   currentHealth: 0
   deathTime: 2
   hitsToStun: 3
@@ -404,7 +404,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 366285570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 829c6481160e78c42a07af7ccb700a6b, type: 3}
+  m_Script: {fileID: 11500000, guid: 56376d658272ab04b8f52d1feba9ed07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BossDamage
   damage: 1
@@ -468,7 +468,7 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0.086640835, y: -0.48568177}
+  m_Offset: {x: -0.10561681, y: -0.48568177}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -478,7 +478,7 @@ BoxCollider2D:
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  m_Size: {x: 2.3389158, y: 4.469152}
+  m_Size: {x: 3.8769727, y: 4.469152}
   m_EdgeRadius: 0
 --- !u!50 &366285577
 Rigidbody2D:
@@ -545,7 +545,7 @@ MonoBehaviour:
   useBounds: 1
   minX: -10
   maxX: 10
-  minY: -5
+  minY: -4
   maxY: 20
 --- !u!114 &661150151
 MonoBehaviour:
@@ -16300,7 +16300,7 @@ Transform:
   m_GameObject: {fileID: 1731659956}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.5, y: -3, z: 0}
+  m_LocalPosition: {x: -22.5, y: -4, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

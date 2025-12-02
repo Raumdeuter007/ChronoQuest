@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
-
-public class BossHealth : EnemyHealth
+using System;
+public class SnowBossHealth : EnemyHealth
 {
     [Header("Boss Stun Settings")]
     public int hitsToStun = 3;
@@ -10,16 +10,17 @@ public class BossHealth : EnemyHealth
     private int currentHitCount = 0;
     private bool isImmune = true; // Start immune
     private bool isStunned = false;
-    private BossMovement bossMovement;
+    private SnowBossMovement bossMovement;
 
     new void Start()
     {
         base.Start();
-        bossMovement = GetComponent<BossMovement>();
+        bossMovement = GetComponent<SnowBossMovement>();
     }
 
-    public new void TakeDamage(int damage)
+    public override void TakeDamage(int damage)
     {
+        Debug.Log("here");
         // Ignore damage if immune or stunned
         if (isImmune || isStunned)
             return;

@@ -28,7 +28,4 @@ public class WizardDamage : MonoBehaviour
             playerHealth.TakeDamage(damage);
         }
     }
-
-
-
 }

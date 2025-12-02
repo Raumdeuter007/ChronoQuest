@@ -1,7 +1,7 @@
 using UnityEngine;
 using System.Collections;
 
-public class BossAttack : EnemyAttack
+public class SnowBossAttack : EnemyAttack
 {
     [Header("Boss Teleport Attack Settings")]
     public int attacksPerSequence = 3;
@@ -9,14 +9,15 @@ public class BossAttack : EnemyAttack
     public float attackDelay = 0.3f; // Delay after appearing before attack
     public float timeBetweenTeleports = 0.5f; // Time after attack before next vanish
 
+    private double multiplier = 1f;
     private int currentAttackCount = 0;
     private bool isInTeleportSequence = false;
-    private BossMovement bossMovement;
+    private SnowBossMovement bossMovement;
 
     new void Start()
     {
         base.Start();
-        bossMovement = GetComponent<BossMovement>();
+        bossMovement = GetComponent<SnowBossMovement>();
     }
 
     public void StartTeleportAttackSequence()
@@ -51,18 +52,18 @@ public class BossAttack : EnemyAttack
             PerformAttack();
             currentAttackCount++;
 
-            // 5. Wait before next teleport (if not last attack)
-            if (currentAttackCount < attacksPerSequence)
-            {
-                yield return new WaitForSeconds(timeBetweenTeleports);
-            }
+            yield return new WaitForSeconds(timeBetweenTeleports);
         }
 
         // Sequence complete
+        multiplier *= 1.25f;
+        attacksPerSequence = (int)(attacksPerSequence * multiplier);
         isInTeleportSequence = false;
+        animator?.SetTrigger("Start_tel");
+        yield return new WaitForSeconds(vanishDuration);
+        animator?.SetTrigger("End_tel");
 
-        if (bossMovement != null)
-            bossMovement.OnTeleportSequenceEnded();
+        bossMovement?.OnTeleportSequenceEnded();
     }
 
     private void PerformAttack()
