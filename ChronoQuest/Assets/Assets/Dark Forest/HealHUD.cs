@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.InputSystem;
 
 public class HealHUD : MonoBehaviour
 {
@@ -29,12 +30,11 @@ public class HealHUD : MonoBehaviour
             currentStacks++;
         }
     }
-
-    private void Update()
+    public void Heal(InputAction.CallbackContext context)
     {
-        if (currentStacks >= stacksNeeded)
+        if (context.performed)
         {
-            if (Input.GetKeyDown(KeyCode.H))
+            if (currentStacks >= stacksNeeded)
             {
                 HealKing();
                 ResetHealHUD();
