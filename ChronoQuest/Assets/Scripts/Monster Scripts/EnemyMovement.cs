@@ -65,10 +65,6 @@ public class WizardMovement : MonoBehaviour
             return;
         }
 
-        if (anim != null)
-        {
-            Debug.Log("Animator isMoving: " + anim.GetBool("isMoving"));
-        }
 
         if (isReturningToPatrol || isWaitingAtPatrolPoint)
         {
@@ -205,7 +201,7 @@ public class WizardMovement : MonoBehaviour
         if (anim != null)
         {
             anim.SetBool("isMoving", moving);
-            Debug.Log("Set isMoving = " + moving);
+            //Debug.Log("Set isMoving = " + moving);
         }
     }
 
