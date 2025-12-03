@@ -77,60 +77,67 @@ public class KingMovement : MonoBehaviour
 
     private void Update()
     {
-        // Update ground state
-        wasGrounded = isGrounded;
-        isGrounded = IsGrounded();
-
-        if (isGrounded && rb.linearVelocity.y <= 0 && knockBackCounter <= 0)
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
-
-        if (!isJumping && wasGrounded && !isGrounded)
-            animator.SetBool(fallHash, true);
-
-        // Handle landing
-        if (!wasGrounded && isGrounded && knockBackCounter <= 0)
+        if (rb.bodyType != RigidbodyType2D.Static)
         {
-            animator.SetBool(jumpHash, false);
-            animator.SetBool(fallHash, false);
-            isJumping = false;
-            jumpTimeCounter = 0f;
-        }
+            // Update ground state
+            wasGrounded = isGrounded;
+            isGrounded = IsGrounded();
 
-        HandleJump();
-        ApplyManualGravity();
-        Flip();
+            if (isGrounded && rb.linearVelocity.y <= 0 && knockBackCounter <= 0)
+                rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0);
+
+            if (!isJumping && wasGrounded && !isGrounded)
+                animator.SetBool(fallHash, true);
+
+            // Handle landing
+            if (!wasGrounded && isGrounded && knockBackCounter <= 0)
+            {
+                animator.SetBool(jumpHash, false);
+                animator.SetBool(fallHash, false);
+                isJumping = false;
+                jumpTimeCounter = 0f;
+            }
+
+            HandleJump();
+            ApplyManualGravity();
+            Flip();
+        }
     }
 
     private void FixedUpdate()
     {
-        if (isDash)
+        if (rb.bodyType != RigidbodyType2D.Static)
         {
-            HandleDash();
-            return;
-        }
-
-        float currentSpeed = speed;
-        if (isSprint && isGrounded)
-            currentSpeed *= sprintMultiplier;
-
-        // Handle knockback
-        if (knockBackCounter > 0)
-        {
-            knockBackCounter -= Time.deltaTime;
-
-            if (!hasTriggeredHit && animator != null)
+            if (isDash)
             {
-                animator.SetTrigger(hitTriggerHash); // Trigger only once
-                hasTriggeredHit = true;
+                HandleDash();
+                return;
             }
-        }
-        else
-        {
-            rb.linearVelocity = new Vector2(horizontal * currentSpeed, rb.linearVelocity.y);
-            hasTriggeredHit = false; // Reset for next knockback
-        }
 
-        currDashReset = Mathf.Max(currDashReset - 1, 0);
+            float currentSpeed = speed;
+            if (isSprint && isGrounded)
+                currentSpeed *= sprintMultiplier;
+
+            // Handle knockback
+            if (knockBackCounter > 0)
+            {
+                knockBackCounter -= Time.deltaTime;
+
+                if (!hasTriggeredHit && animator != null)
+                {
+                    animator.SetTrigger(hitTriggerHash); // Trigger only once
+                    hasTriggeredHit = true;
+                }
+            }
+            else
+            {
+                rb.linearVelocity = new Vector2(horizontal * currentSpeed, rb.linearVelocity.y);
+                hasTriggeredHit = false; // Reset for next knockback
+            }
+
+            currDashReset = Mathf.Max(currDashReset - 1, 0);
+
+        }
     }
     #endregion
 

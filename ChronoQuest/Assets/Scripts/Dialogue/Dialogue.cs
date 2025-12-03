@@ -61,6 +61,9 @@ public class Dialogue : MonoBehaviour
         else
         {
             gameObject.SetActive(false);
+            GameObject finish = GameObject.Find("Finish");
+            FinishPoint fin = finish?.GetComponent<FinishPoint>();
+            fin?.NextScene();
         }
     }
 }

@@ -65,7 +65,8 @@ public class EnemyAttack : MonoBehaviour
             knockbackX *= 1.8f;
             knockbackY *= 1.1f;
 
-            rb.linearVelocity = new Vector2(knockbackX, knockbackY);
+            if (rb.bodyType != RigidbodyType2D.Static)
+                rb.linearVelocity = new Vector2(knockbackX, knockbackY);
         }
 
         // Clear reference
