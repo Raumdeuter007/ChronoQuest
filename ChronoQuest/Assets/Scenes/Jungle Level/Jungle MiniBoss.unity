@@ -1006,7 +1006,7 @@ Transform:
   m_GameObject: {fileID: 760108193}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 16.82, y: -7.97, z: 0}
+  m_LocalPosition: {x: 45.7, y: -7.97, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9731,8 +9731,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 159309529829889209, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
+      propertyPath: stunTime
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 159309529829889209, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
       propertyPath: moveSpeed
-      value: 4
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 159309529829889209, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
+      propertyPath: chaseDistance
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 159309529829889209, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
       propertyPath: playerTransform
@@ -9746,6 +9754,18 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[1]'
       value: 
       objectReference: {fileID: 760108194}
+    - target: {fileID: 629230153091678108, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 758397353989502119, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 1.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 758397353989502119, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -1.33
+      objectReference: {fileID: 0}
     - target: {fileID: 843639645145453978, guid: 8a99366456532a143bc33d2bcabc671c, type: 3}
       propertyPath: healHUD
       value: 
@@ -10222,7 +10242,7 @@ MonoBehaviour:
   fireballPrefab: {fileID: 7568070356295171701, guid: 1d6cc0f84bf64af48ba5ed36272ad178, type: 3}
   player: {fileID: 241552869}
   spawnOffsetX: 3
-  spawnOffsetY: 5
+  spawnOffsetY: 20
   spawnInterval: 2
 --- !u!1 &2065244987
 GameObject:
@@ -10249,7 +10269,7 @@ Transform:
   m_GameObject: {fileID: 2065244987}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.4, y: -7.8, z: 0}
+  m_LocalPosition: {x: -1.9, y: -7.8, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

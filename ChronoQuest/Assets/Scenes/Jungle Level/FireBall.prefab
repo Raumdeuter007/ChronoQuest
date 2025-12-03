@@ -80,8 +80,8 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
+  m_SortingLayerID: -593161935
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 3058095610567952157, guid: 3fe516ae1b2dd814fb675f4a05fc2819, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -161,6 +161,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Fireball
   fallSpeed: 5
   lifetime: 5
+  damageAmount: 10
+  explosionDuration: 0.5
+  explosionScale: {x: 2, y: 2, z: 1}
 --- !u!95 &2823093655082437667
 Animator:
   serializedVersion: 7
