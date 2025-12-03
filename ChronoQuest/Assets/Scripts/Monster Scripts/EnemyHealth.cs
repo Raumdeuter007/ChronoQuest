@@ -60,7 +60,7 @@ public class EnemyHealth : MonoBehaviour
         }
         StartCoroutine(Death());
     }
-    IEnumerator Death()
+    protected virtual IEnumerator Death()
     {
         yield return new WaitForSeconds(deathTime);
         Destroy(gameObject);

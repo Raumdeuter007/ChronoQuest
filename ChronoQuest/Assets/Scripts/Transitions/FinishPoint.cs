@@ -10,4 +10,8 @@ public class FinishPoint : MonoBehaviour
             GameManager.sceneController.LoadScene(levelName);
         }
     }
+    public void NextScene()
+    {
+        GameManager.sceneController.LoadScene(levelName);
+    }
 }

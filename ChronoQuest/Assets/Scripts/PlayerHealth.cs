@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -36,8 +37,22 @@ public class PlayerHealth : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Died!");
-        Destroy(gameObject);
-        // Disable movement, play animation, reload scene, etc.
-        // GetComponent<KingMovement>().enabled = false;
+        Animator animator = GetComponent<Animator>();
+        if (!animator.GetBool("Dead"))
+        {
+            Rigidbody2D rb = GetComponent<Rigidbody2D>();
+            rb.bodyType = RigidbodyType2D.Static;
+            animator.SetBool("Dead", true);
+            animator.SetTrigger("Death");
+            StartCoroutine(Death());
+            Destroy(GetComponent<CapsuleCollider2D>());
+        }
+    }
+
+    IEnumerator Death()
+    {
+        yield return new WaitForSeconds(2f);
+        GameManager.Stages.ResetAllProgress();
+        GameManager.sceneController.LoadScene("main_menu");
     }
 }

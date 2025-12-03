@@ -75,4 +75,12 @@ public class SnowBossHealth : EnemyHealth
     {
         return isStunned;
     }
+
+    protected override IEnumerator Death()
+    {
+        yield return new WaitForSeconds(deathTime);
+        GameObject foundObject = GameObject.Find("Finish Level");
+        LevelFinish level = foundObject?.GetComponent<LevelFinish>();
+        level?.Finish();
+    }
 }
