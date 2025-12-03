@@ -17,7 +17,7 @@ public class EnemyHealth : MonoBehaviour
 
         // If animator is on child
         animator = GetComponentInChildren<Animator>();
-        animator.SetBool("Dead", false);
+        //animator.SetBool("Dead", false);
         // Get the movement script from this enemy
         movement = GetComponent<WizardMovement>();
     }
@@ -53,11 +53,11 @@ public class EnemyHealth : MonoBehaviour
     {
         movement.isStunned = true;
         movement.stunCounter = 1;
-        if (!animator.GetBool("Dead"))
-        {
-            animator.SetBool("Dead", true);
-            animator.SetTrigger("Death");
-        }
+        //if (!animator.GetBool("Dead"))
+        //{
+        //    animator.SetBool("Dead", true);
+        //    animator.SetTrigger("Death");
+        //}
         StartCoroutine(Death());
     }
     protected virtual IEnumerator Death()
