@@ -6,17 +6,20 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/TIme Portal/Time Portal.unity
-    guid: 72b65f23a9e2d1d45ba432d071f14e0e
-  - enabled: 1
     path: Assets/Scenes/Menus/main_menu.unity
     guid: ee64fca488021904b90e9fa5ed862901
   - enabled: 1
+    path: Assets/Scenes/Start and End Scene/Introduction.unity
+    guid: b41246b0dc7b88f4d80fce6babc3b51f
+  - enabled: 1
+    path: Assets/Scenes/Start and End Scene/Fall from Grace.unity
+    guid: 38d56a6bf52435042a17a927bd1e2022
+  - enabled: 1
+    path: Assets/Scenes/TIme Portal/Time Portal.unity
+    guid: 72b65f23a9e2d1d45ba432d071f14e0e
+  - enabled: 1
     path: Assets/Scenes/DarkForest Level/DarkForest.unity
     guid: 7b7fe88f0ab424ac2ae80025ec8b8aa6
-  - enabled: 1
-    path: Assets/Scenes/Menus/next level menu.unity
-    guid: 6140cb291790ca54898ebc0597641c44
   - enabled: 1
     path: Assets/Scenes/Grass Level/Grass Level.unity
     guid: 3803f5bd30d1f1347a0128bb5b5d01b1
@@ -24,8 +27,20 @@ EditorBuildSettings:
     path: Assets/Scenes/Jungle Level/Jungle Level.unity
     guid: 5368b3e5b1a1bd24cb54dc59eaf7e6d9
   - enabled: 1
+    path: Assets/Scenes/Jungle Level/Jungle MiniBoss.unity
+    guid: c0e01d803191d154e9fd4471d473814a
+  - enabled: 1
     path: Assets/Scenes/Snow Level/Snow Level.unity
     guid: a418f0b8e51676a4fa24644691f5d598
+  - enabled: 1
+    path: Assets/Scenes/Snow Level/Snow Boss.unity
+    guid: b6f173b2d56f7b946b460a724c5e0985
+  - enabled: 1
+    path: Assets/Scenes/Dungeon level/Dungeon.unity
+    guid: 01f18c74bfbdf3f45ac10635baf1bff7
+  - enabled: 1
+    path: Assets/Scenes/Start and End Scene/The Reset.unity
+    guid: eced28363569b704fbf9e88515e7c957
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 2bcd2660ca9b64942af0de543d8d7100, type: 3}
   m_UseUCBPForAssetBundles: 0

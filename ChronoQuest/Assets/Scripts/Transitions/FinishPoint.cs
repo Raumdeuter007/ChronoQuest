@@ -7,7 +7,7 @@ public class FinishPoint : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            SceneController.instance.LoadScene(levelName);
+            GameManager.sceneController.LoadScene(levelName);
         }
     }
 }
